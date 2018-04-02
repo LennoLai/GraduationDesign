@@ -2,38 +2,50 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.xiaozhu.helloworld">
 
-    <application
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:replace="android:label"
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+
+    <application xmlns:tools="http://schemas.android.com/tools"
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Face Recognition"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <activity
-            android:name=".UsersActivity"
-            android:label="人员管理"></activity>
-
+            android:name=".PeopleManagementActivity"
+            android:label="人员管理" />
         <activity
             android:name=".StatisticsActivity"
             android:label="数据统计">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".AboutUsActivity"
-            android:label="关于我们">
+            android:label="关于我们"></activity>
+        <activity
+            android:name=".GetUserInfoActivity">
+
         </activity>
 
 
-        <activity android:name=".UserInforDetailActivity"></activity>
+        <provider
+            android:authorities="com.example.xiaozhu.helloworld.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
 
+        </provider>
 
     </application>
+
 </manifest>

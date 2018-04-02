@@ -3,7 +3,6 @@ package com.example.xiaozhu.helloworld;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 
 import org.litepal.crud.DataSupport;
 
@@ -18,7 +17,7 @@ public class UserLitepal extends DataSupport {
     private byte[] headshot;
     private String department;
     private String authority;
-    private int workNumber;
+    private int id;
     private String telephone;
     private String mail;
 
@@ -60,11 +59,11 @@ public class UserLitepal extends DataSupport {
 
 
     //工号
-    public int getWorkNumber() {
-        return workNumber;
+    public int getId() {
+        return id;
     }
-    public void setWorkNumber(int workNumber) {
-        this.workNumber = workNumber;
+    public void setId(int id) {
+        this.id = id;
     }
 
 
@@ -83,13 +82,11 @@ public class UserLitepal extends DataSupport {
     public byte[] getHeadshot() {
         return headshot;
     }
-    public void setHeadshot(Resources resources, int id) {
-        Bitmap headshot = BitmapFactory.decodeResource(resources, id);
-        byte[] image = img(headshot);
-        this.headshot = image;
+    public void setHeadshot(byte[] headshot) {
+        this.headshot = headshot;
     }
     //bitmap转为二进制
-    private byte[] img(Bitmap bitmap) {
+    public static byte[] img(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();

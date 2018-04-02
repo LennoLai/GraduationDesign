@@ -1,5 +1,6 @@
 package com.example.xiaozhu.helloworld;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,26 +16,37 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersActivity extends AppCompatActivity {
+public class PeopleManagementActivity extends AppCompatActivity {
+
     private DrawerLayout mDrawerLayout;
+    PeopleManagementAdapter adapter;
+    RecyclerView recyclerView;
+
+
+    public void refresh(){
+        onCreate(null);
+    }
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_users);
+        setContentView(R.layout.activity_people_management);
+
 
         //加载toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,45 +93,54 @@ public class UsersActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyApplication.getContext(),UserInforDetailActivity.class);
+                Intent intent = new Intent(MyApplication.getContext(),GetUserInfoActivity.class);
                 startActivity(intent);
             }
         });
-        /*
+
         LitePal.getDatabase();
-        UserLitepal userLitepal = new UserLitepal();
-        userLitepal.setName("庄周");
-        userLitepal.setHeadshot(getResources(),R.drawable.zhuangzhou);
-        userLitepal.save();
-        */
+
+
         //删除数据库所有内容
-        DataSupport.deleteAll(UserLitepal.class);
+        //DataSupport.deleteAll(UserLitepal.class);
+
 
 
         //recyclerView
         initUserInfo();
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+          //recyclerView的缓存问题
+        if(recyclerView.getRecycledViewPool()!=null){
+            recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 10);
+        }
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        UserAdapter adapter = new UserAdapter(UserInfoList);
+        adapter = new PeopleManagementAdapter(UserInfoList);
         recyclerView.setAdapter(adapter);
 
-    }
 
+
+    }
 
 
     //根据数据库初始化recycleView
-
-    private List<UserInfo> UserInfoList = new ArrayList<>();
-    List<UserLitepal> users = DataSupport.findAll(UserLitepal.class);
-    private void initUserInfo(){
+      private List<UserInfo> UserInfoList = new ArrayList<>();
+      List<UserLitepal> users = DataSupport.findAll(UserLitepal.class);
+      private void initUserInfo(){
         for (UserLitepal user : users){
-            Bitmap bitmap  = BitmapFactory.decodeByteArray(user.getHeadshot(), 0, user.getHeadshot().length);
-            UserInfo userInfo = new UserInfo(user.getName(),bitmap);
-            UserInfoList.add(userInfo);
+            Log.d("ILOVEYOU", user.getName());
+            try {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(user.getHeadshot(), 0, user.getHeadshot().length);
+                UserInfo userInfo = new UserInfo(user.getName(), bitmap);
+                UserInfoList.add(userInfo);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
     }
+
 
 
     //加载toolbar上的菜单(搜索)
@@ -159,33 +180,18 @@ public class UsersActivity extends AppCompatActivity {
 
 
 
-/*
+
   //初始化用户列表
     //recyclerView
-    private List<UserInfo> UserInfoList = new ArrayList<>();
+   /* private List<UserInfo> UserInfoList = new ArrayList<>();
 
     private void initUserInfo(){
-        for(int i = 0;i < 4; i++){
-            UserInfo Xiaoming1 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
+        for(int i = 0;i < 2; i++){
+            UserInfo Xiaoming1 = new UserInfo("张一",BitmapFactory.decodeResource(this.getResources(),R.drawable.ic_person_24px));
             UserInfoList.add(Xiaoming1);
-            UserInfo Xiaoming2 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
+            UserInfo Xiaoming2 = new UserInfo("张一",BitmapFactory.decodeResource(this.getResources(),R.drawable.ic_person_24px));
             UserInfoList.add(Xiaoming2);
-            UserInfo Xiaoming3 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
-            UserInfoList.add(Xiaoming3);
-            UserInfo Xiaoming4 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
-            UserInfoList.add(Xiaoming4);
-            UserInfo Xiaoming5 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
-            UserInfoList.add(Xiaoming5);
-            UserInfo Xiaoming6 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
-            UserInfoList.add(Xiaoming6);
-            UserInfo Xiaoming7 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
-            UserInfoList.add(Xiaoming7);
-            UserInfo Xiaoming8 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
-            UserInfoList.add(Xiaoming8);
-            UserInfo Xiaoming9 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
-            UserInfoList.add(Xiaoming9);
-            UserInfo Xiaoming10 = new UserInfo("张一",R.drawable.ic_person_24px,R.drawable.ic_line_24px);
-            UserInfoList.add(Xiaoming10);
+
         }
     }
 
@@ -198,7 +204,27 @@ public class UsersActivity extends AppCompatActivity {
     private String mail;
     */
 
-
+    @Override
+    protected void onResume(){
+        Log.d("ILOVEYOU", "Resume success");
+        super.onResume();
+        if(adapter != null){
+            UserInfoList.clear();
+            List<UserLitepal> users = DataSupport.findAll(UserLitepal.class);
+                for (UserLitepal user : users){
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(user.getHeadshot(), 0, user.getHeadshot().length);
+                        UserInfo userInfo = new UserInfo(user.getName(), bitmap);
+                        UserInfoList.add(userInfo);
+                        adapter = new PeopleManagementAdapter(UserInfoList);
+                        recyclerView.setAdapter(adapter);
+                        Log.d("ILOVEYOU", user.getName());
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+        }
+    }
 
 
 

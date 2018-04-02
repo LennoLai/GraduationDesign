@@ -44,7 +44,7 @@ public  class AboutUsActivity extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.nav_users:
-                        Intent intent1 = new Intent(MyApplication.getContext(),UsersActivity.class);
+                        Intent intent1 = new Intent(MyApplication.getContext(),PeopleManagementActivity.class);
                         mDrawerLayout.closeDrawers();
                         finish();
                         break;

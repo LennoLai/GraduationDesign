@@ -14,12 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -50,6 +48,7 @@ public class StatisticsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.avtivity_statistics);
+
 
         //饼图
         mPieChart = (PieChart)findViewById(R.id.spread_pie_chart);
@@ -140,7 +139,7 @@ public class StatisticsActivity extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
                         break;
                     case R.id.nav_users:
-                        Intent intent = new Intent(MyApplication.getContext(), UsersActivity.class);
+                        Intent intent = new Intent(MyApplication.getContext(), PeopleManagementActivity.class);
                         startActivity(intent);
                         mDrawerLayout.closeDrawers();
                         finish();

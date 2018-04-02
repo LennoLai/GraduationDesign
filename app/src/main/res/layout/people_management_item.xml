@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="60dp">
     
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:id="@+id/person_image"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
@@ -16,10 +16,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/person_name"
-        android:textSize="18dp"
+        android:textSize="30dp"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/person_image"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="80dp"
+        android:textColor="@android:color/black"/>
 
 
 
