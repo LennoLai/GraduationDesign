@@ -106,6 +106,7 @@ public class StatisticsActivity extends AppCompatActivity {
         xAxis.setValueFormatter(new MyXAxisValueFormatter(times));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
+        //label放在axe正下方
         xAxis.setCenterAxisLabels(true);
         //设置最小间距
         //xAxis.setGranularity(1f);
@@ -244,8 +245,6 @@ public class StatisticsActivity extends AppCompatActivity {
     }
     //创建pieData，即图标的数据
     private PieData getPieData(){
-
-
         ArrayList<PieEntry> yValues = new ArrayList<PieEntry>();//yVals用来表示封装每个饼块的实际数据
 
         // 饼图数据
@@ -279,8 +278,6 @@ public class StatisticsActivity extends AppCompatActivity {
 
         pieDataSet.setColors(colors);
         PieData pieData = new PieData(pieDataSet);
-
-
         return pieData;
     }
 }

@@ -140,6 +140,8 @@ public class GetUserInfoActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK){
                     try{
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        ImageView imageView = (ImageView)findViewById(R.id.picture);
+                        imageView.setImageBitmap(bitmap);
                         headShot = UserLitepal.img(bitmap);
                     }catch (FileNotFoundException e){
                         e.printStackTrace();
