@@ -42,7 +42,7 @@ public class StatisticsActivity extends AppCompatActivity {
     private PieChart mPieChart;
     private BarChart mBarChart;
     private DrawerLayout mDrawerLayout;
-    private List<ReachedInfo> infoList = new ArrayList<>();
+    private List<ReachedInfoLitepal> infoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +157,7 @@ public class StatisticsActivity extends AppCompatActivity {
         });
 
         //recyclerView
-        infoList = DataSupport.where("arriveInTime = ?", "0").find(ReachedInfo.class);
+        infoList = DataSupport.where("arriveInTime = ?", "0").find(ReachedInfoLitepal.class);
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
-    private List<ReachedInfo> infoList;
+    private List<ReachedInfoLitepal> infoList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView info_name;
@@ -26,7 +26,7 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
         }
     }
 
-    public InfoAdapter(List<ReachedInfo> list){
+    public InfoAdapter(List<ReachedInfoLitepal> list){
         infoList = list;
     }
 
@@ -39,7 +39,7 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
-        ReachedInfo info = infoList.get(position);
+        ReachedInfoLitepal info = infoList.get(position);
         holder.info_name.setText(info.getName());
         holder.info_reach_time.setText(info.getReachedTime());
     }

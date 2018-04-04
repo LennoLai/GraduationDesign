@@ -5,8 +5,8 @@ import org.litepal.crud.DataSupport;
 /**
  * Created by xiaozhu on 2018/3/10.
  */
-
-public class ReachedInfo extends DataSupport {
+//statistics活动的recyclerView
+public class ReachedInfoLitepal extends DataSupport {
     private String name;
     private String reachedTime;
     private int arriveInTime;

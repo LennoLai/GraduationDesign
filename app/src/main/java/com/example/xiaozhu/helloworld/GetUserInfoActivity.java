@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -40,7 +41,32 @@ public class GetUserInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_user_info);
 
-
+        //处理管理人员页面recyclerView点击事件传来的intent
+        try {
+            if(getIntent()!=null) {
+                userLitepal = new UserLitepal();
+                name = (EditText)findViewById(R.id.edit_text_name);
+                id = (EditText)findViewById(R.id.edit_text_id);
+                department = (EditText)findViewById(R.id.edit_department);
+                authority = (EditText)findViewById(R.id.edit_text_authrity);
+                mail = (EditText)findViewById(R.id.edit_text_mail);
+                phone = (EditText)findViewById(R.id.edit_text_phone);
+                UserInfoIntentData userInfoIntentData = (UserInfoIntentData)getIntent().getSerializableExtra("userLitepalData");
+                userLitepal = userInfoIntentData.getUserLitepal();
+                name.setText(userLitepal.getName());
+                id.setText(String.valueOf(userLitepal.getId()));
+                department.setText(userLitepal.getDepartment());
+                authority.setText(userLitepal.getAuthority());
+                mail.setText(userLitepal.getMail());
+                phone.setText(userLitepal.getTelephone());
+                headShot = userLitepal.getHeadshot();
+                Bitmap bitmap = BitmapFactory.decodeByteArray(headShot,0,headShot.length);
+                ImageView imageView = (ImageView)findViewById(R.id.picture);
+                imageView.setImageBitmap(bitmap);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_show_user_info);
         setSupportActionBar(toolbar);

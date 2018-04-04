@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by xiaozhu on 2017/11/5.
  */
-
+//全局获得context的方式
 public class MyApplication extends Application{
     private static Context context;
 

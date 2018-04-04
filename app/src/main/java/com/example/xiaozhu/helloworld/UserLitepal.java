@@ -7,12 +7,13 @@ import android.graphics.BitmapFactory;
 import org.litepal.crud.DataSupport;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 
 /**
  * Created by xiaozhu on 2017/12/1.
  */
 
-public class UserLitepal extends DataSupport {
+public class UserLitepal extends DataSupport implements Serializable{
     private String name;
     private byte[] headshot;
     private String department;
